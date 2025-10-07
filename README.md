@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Undanganta Dashboard
+
+Dashboard admin dan owner untuk **Undanganta** - platform undangan online yang murah, gampang, dan cantik.
+
+## Tentang Undanganta
+
+Undanganta adalah layanan undangan online yang memberikan solusi:
+- **Murah** - Harga terjangkau untuk semua kalangan
+- **Gampang** - Interface yang mudah digunakan
+- **Cantik** - Desain yang menarik dan elegan
+
+## Fitur Dashboard
+
+Dashboard ini menyediakan:
+- Manajemen undangan untuk admin
+- Panel kontrol owner
+- Monitoring dan analytics
+- Pengaturan sistem
+
+## Tech Stack
+
+- **Next.js 15** - React framework dengan Turbopack
+- **React 19** - Library UI terbaru
+- **TypeScript** - Type safety
+- **Tailwind CSS v4** - Styling framework
+- **Shadcn UI** - Komponen UI siap pakai
+- **Biome** - Linting dan formatting
+- **Bun** - Package manager yang cepat
 
 ## Getting Started
 
-First, run the development server:
+Jalankan development server:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+bun run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Buka [http://localhost:3000](http://localhost:3000) di browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+bun run dev      # Start development server
+bun run build    # Build untuk production
+bun run start    # Start production server
+bun run lint     # Check code dengan Biome
+bun run format   # Format code dengan Biome
+```
 
-## Learn More
+## Development
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Menggunakan Turbopack untuk build yang lebih cepat
+- Biome untuk linting dan formatting yang konsisten
+- Tailwind CSS v4 untuk styling yang modern
+- Shadcn UI components untuk UI yang siap pakai

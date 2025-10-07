@@ -1,0 +1,19 @@
+{
+	"description": "Template configuration for this project. See https://www.codebuff.com/config for all options.",
+	"startupProcesses": [
+		{
+			"name": "dev",
+			"command": "bun run dev",
+			"enabled": true,
+			"stdoutFile": "logs/dev.log"
+		}
+	],
+	"fileChangeHooks": [
+		{
+			"name": "lint",
+			"command": "bun run lint",
+			"filePattern": "**/*.{ts,tsx,js,jsx}",
+			"enabled": true
+		}
+	]
+}
