@@ -1,15 +1,15 @@
+import type React from "react";
 import { Separator } from "@/components/ui/separator";
 import {
 	SidebarInset,
 	SidebarProvider,
 	SidebarTrigger,
 } from "@/components/ui/sidebar";
-import React from "react";
 import Breadcrumbs from "~/components/layouts/dashboard/breadcrumbs";
+import DashboardProvider from "~/components/layouts/dashboard/provider";
 import { AppSidebar } from "~/components/layouts/dashboard/sidebar";
 import { Toaster } from "~/components/ui/sonner";
 import { getProfile } from "./action";
-import DashboardProvider from "~/components/layouts/dashboard/provider";
 
 export default async function LayoutDashboard({
 	children,

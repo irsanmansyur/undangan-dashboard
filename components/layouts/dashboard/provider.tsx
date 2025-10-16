@@ -1,6 +1,8 @@
 "use client";
-import React, { useEffect } from "react";
+import type React from "react";
+import { useEffect } from "react";
 import { useStoreDashboard } from "~/stores/dashboard";
+
 type DashboardProviderProps = {
 	children?: React.ReactNode;
 	user: DASHBOARD.User;
@@ -14,8 +16,8 @@ const DashboardProvider: React.FC<DashboardProviderProps> = ({
 	useEffect(() => {
 		setDashboard({ user: sr });
 		return () => {};
-	}, []);
-	if (!user) return <></>;
+	}, [setDashboard, sr]);
+	if (!user) return "";
 	return children;
 };
 

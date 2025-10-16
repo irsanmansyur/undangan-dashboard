@@ -9,11 +9,12 @@ import {
 	BreadcrumbSeparator,
 } from "~/components/ui/breadcrumb";
 import { useStorePage } from "~/stores/page";
+
 type BreadcrumbsProps = {
 	children?: React.ReactNode;
 };
 
-const Breadcrumbs: React.FC<BreadcrumbsProps> = ({}) => {
+const Breadcrumbs: React.FC<BreadcrumbsProps> = () => {
 	const { breadcrumbs } = useStorePage();
 	return (
 		<Breadcrumb>
@@ -25,7 +26,7 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({}) => {
 					const isLast = index === breadcrumbs.length - 1;
 					return (
 						<React.Fragment key={breadcrumb.href}>
-							{(index == 0 || !isLast) && (
+							{(index === 0 || !isLast) && (
 								<BreadcrumbSeparator className="hidden md:block" />
 							)}
 							<BreadcrumbItem>

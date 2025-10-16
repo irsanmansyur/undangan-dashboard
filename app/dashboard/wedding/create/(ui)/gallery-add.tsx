@@ -1,10 +1,12 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { z } from "zod";
-import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-
+import { Trash2 } from "lucide-react";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { Button } from "@/components/ui/button";
 import {
 	Dialog,
 	DialogContent,
@@ -12,22 +14,19 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import {
 	Form,
+	FormControl,
 	FormField,
 	FormItem,
 	FormLabel,
-	FormControl,
 	FormMessage,
 } from "@/components/ui/form";
-import { Trash2 } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { useFetch } from "~/hooks/fetch-new";
-import { AppConfig } from "~/utils/configs/app";
 import { useStorePage } from "~/stores/page";
-import { useStoreCreateWedding } from "../store";
+import { AppConfig } from "~/utils/configs/app";
 
 /**
  * Schema
@@ -36,7 +35,7 @@ const gallerySchema = z.object({
 	image: z
 		.any()
 		.refine((v) => v instanceof File, { message: "Image is required" })
-		.refine((v: File) => v && v.type.startsWith("image/"), {
+		.refine((v: File) => v?.type.startsWith("image/"), {
 			message: "File must be an image",
 		}),
 	alt: z.string().min(1, "Alt text is required"),
@@ -61,15 +60,11 @@ export function AddGalleryModal({
 	weddingId,
 }: GalleryModalProps) {
 	const { generateNewPageId } = useStorePage();
-	const {
-		loading: loadingAdd,
-		errors,
-		fetchData,
-	} = useFetch<{ data: WEDDING.Collection }>();
+	const { fetchData } = useFetch<{ data: WEDDING.Collection }>();
 
 	const form = useForm<GalleryForm>({
 		resolver: zodResolver(gallerySchema),
-		defaultValues: { image: undefined as any, alt: "", caption: "" },
+		defaultValues: { image: undefined, alt: "", caption: "" },
 	});
 
 	const { control, handleSubmit, reset, setValue } = form;
@@ -153,7 +148,9 @@ export function AddGalleryModal({
 									<FormMessage />
 									{previewUrl && (
 										<div className="mt-3 flex items-start gap-3">
-											<img
+											<Image
+												width={112}
+												height={112}
 												src={previewUrl}
 												alt="preview"
 												className="h-28 w-28 object-cover rounded border"
@@ -174,7 +171,7 @@ export function AddGalleryModal({
 															}
 															// also clear the native file input by resetting the form (cheap)
 															// but keep other fields - so we patch
-															setValue("image" as any, undefined);
+															setValue("image", undefined);
 														}}
 													>
 														<Trash2 className="h-4 w-4" /> Remove

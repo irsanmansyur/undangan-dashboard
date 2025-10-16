@@ -1,20 +1,23 @@
 "use client";
 
-import { Pause, Play, Plus, Trash2, Volume2 } from "lucide-react";
+import { Play, Plus, Volume2 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { Button, buttonVariants } from "@/components/ui/button";
 import type { Template } from "@/types/template";
 import { AppConfig } from "@/utils/configs/app";
-import { useFetcher } from "~/hooks/fetcher";
-import Image from "next/image";
 import { Badge } from "~/components/ui/badge";
+import LinkProtected from "~/components/ui/link/protected";
+import { useFetcher } from "~/hooks/fetcher";
 import { useBreadcrumbs } from "~/hooks/page";
+import { useStoreDashboard } from "~/stores/dashboard";
 import DeleteButton from "./(ui)/delete-button";
 
 export default function TemplatePage() {
 	const { data, loading, exec: fetchTemplates } = useFetcher<Template[]>();
-	const [playingId, setPlayingId] = useState<string | null>(null);
+	const { user } = useStoreDashboard();
+	const [_playingId, setPlayingId] = useState<string | null>(null);
 	const audioRef = useRef<HTMLAudioElement | null>(null);
 	useBreadcrumbs([{ label: "Templates", href: "/dashboard/template" }]);
 
@@ -53,12 +56,16 @@ export default function TemplatePage() {
 						Manage your invitation templates
 					</p>
 				</div>
-				<Link href="/dashboard/template/create">
+
+				<LinkProtected
+					href="/dashboard/template/create"
+					canVisit={user?.role === "admin"}
+				>
 					<Button>
 						<Plus className="w-4 h-4" />
 						Create Template
 					</Button>
-				</Link>
+				</LinkProtected>
 			</div>
 
 			<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -81,7 +88,7 @@ export default function TemplatePage() {
 							<div className="flex items-center gap-2 mt-2">
 								<Badge
 									variant={
-										template.status == "inactive" ? "outline" : "default"
+										template.status === "inactive" ? "outline" : "default"
 									}
 								>
 									{template.status}

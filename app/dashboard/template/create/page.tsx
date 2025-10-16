@@ -1,8 +1,11 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowLeft, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
 	Card,
@@ -13,9 +16,6 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { AppConfig } from "@/utils/configs/app";
-import { useForm } from "react-hook-form";
-import { templateSchema, TemplateSchema } from "./schema";
-import { zodResolver } from "@hookform/resolvers/zod";
 import {
 	Form,
 	FormControl,
@@ -24,10 +24,10 @@ import {
 	FormLabel,
 	FormMessage,
 } from "~/components/ui/form";
-import ImageInput from "./image-pratinjauh";
-import { toast } from "sonner";
-import { jsonToFormData } from "~/lib/form";
 import { useFetch } from "~/hooks/fetch-new";
+import { jsonToFormData } from "~/lib/form";
+import ImageInput from "./image-pratinjauh";
+import { type TemplateSchema, templateSchema } from "./schema";
 
 export default function CreateTemplatePage() {
 	const router = useRouter();

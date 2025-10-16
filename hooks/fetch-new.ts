@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo, useEffect } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 type FetchState<T> = {
 	loading: boolean;
@@ -35,11 +35,15 @@ export function useFetch<T = unknown>() {
 			const data = (await res.json()) as T;
 			setState({ loading: false, resp: data, errors: null });
 			return data;
-		} catch (err: any) {
+		} catch (err: unknown) {
+			let message = "Unknown error";
+			if (err instanceof Error) {
+				message = err.message;
+			}
 			setState({
 				loading: false,
 				resp: null,
-				errors: err.message || "Unknown error",
+				errors: message,
 			});
 			return null;
 		}
@@ -56,8 +60,7 @@ export const useFetcNow = <T = unknown>(
 	options?: RequestInit,
 	delay = 500, // default 500ms
 ) => {
-	const { loading, errors, resp, fetchData } = useFetch<T>();
-
+	const { loading, resp, fetchData } = useFetch<T>();
 	const urlOri = useMemo(() => url, [url]);
 	const opt = useMemo(() => options, [options]);
 

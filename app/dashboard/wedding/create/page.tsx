@@ -1,19 +1,8 @@
 "use client";
 
-import { ArrowLeft, Check } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardHeader,
-	CardTitle,
-} from "@/components/ui/card";
-import { Step1Form } from "@/components/wedding/step1-form";
-import { Step3Form } from "@/components/wedding/step3-form";
-import { Step4Form } from "@/components/wedding/step4-form";
 import type { Template } from "@/types/template";
 import type {
 	PaymentMethod,
@@ -21,7 +10,6 @@ import type {
 	Ucapan,
 	VideoInfo,
 	WeddingAcara,
-	WeddingCollection,
 	WeddingFirstStep,
 	WeddingMempelai,
 } from "@/types/wedding";
@@ -30,31 +18,27 @@ import { useFetcher } from "~/hooks/fetcher";
 import { renderStepIndicator } from "../(ui)/step-indicator";
 import Step1 from "./(ui)/step-1";
 import Step2 from "./(ui)/step-2";
-import { useStoreCreateWedding } from "./store";
 import Step3 from "./(ui)/step-3";
 import Step4 from "./(ui)/step-4";
+import { useStoreCreateWedding } from "./store";
 
 export default function CreateWeddingPage() {
 	const { step, wedding } = useStoreCreateWedding();
-
-	const router = useRouter();
-	const { data: templatesData, exec: fetchTemplates } =
-		useFetcher<Template[]>();
-	const { loading, error, request, data } = useFetcher<WeddingCollection>();
-	const [weddingId, setWeddingId] = useState<string | null>(null);
+	const { exec: fetchTemplates } = useFetcher<Template[]>();
+	const [_weddingId, _setWeddingId] = useState<string | null>(null);
 
 	// Step 1 data
-	const [step1Data, setStep1Data] = useState<WeddingFirstStep>({
+	const [_step1Data, _setStep1Data] = useState<WeddingFirstStep>({
 		templateId: "",
 		coverPhoto: "",
 		backgroundMusic: "",
 	});
-	const [coverPhotoFile, setCoverPhotoFile] = useState<File | null>(null);
-	const [groomPhotoFile, setGroomPhotoFile] = useState<File | null>(null);
-	const [bridePhotoFile, setBridePhotoFile] = useState<File | null>(null);
+	const [_coverPhotoFile, _setCoverPhotoFile] = useState<File | null>(null);
+	const [_groomPhotoFile, _setGroomPhotoFile] = useState<File | null>(null);
+	const [_bridePhotoFile, _setBridePhotoFile] = useState<File | null>(null);
 
 	// Step 2 data
-	const [step2Data, setStep2Data] = useState<WeddingMempelai>({
+	const [_step2Data, _setStep2Data] = useState<WeddingMempelai>({
 		groom: {
 			namaLengkap: "",
 			anakKe: "",
@@ -74,11 +58,11 @@ export default function CreateWeddingPage() {
 	});
 
 	// Step 3 now combines step 2 and 3 data
-	const [showResepsiPria, setShowResepsiPria] = useState(false);
-	const [showResepsiWanita, setShowResepsiWanita] = useState(false);
+	const [_showResepsiPria, _setShowResepsiPria] = useState(false);
+	const [_showResepsiWanita, _setShowResepsiWanita] = useState(false);
 
 	// Step 3 data
-	const [step3Data, setStep3Data] = useState<WeddingAcara>({
+	const [_step3Data, _setStep3Data] = useState<WeddingAcara>({
 		akadNikah: {
 			tanggal: "",
 			waktu: "",
@@ -88,19 +72,19 @@ export default function CreateWeddingPage() {
 	});
 
 	// Step 3 data (love story & gallery)
-	const [loveStories, setLoveStories] = useState<
+	const [_loveStories, _setLoveStories] = useState<
 		{ year: string; title: string; desc: string; image?: File }[]
 	>([{ year: "", title: "", desc: "" }]);
-	const [galleryPhotos, setGalleryPhotos] = useState<
+	const [_galleryPhotos, _setGalleryPhotos] = useState<
 		{ file: File | null; caption: string }[]
 	>([{ file: null, caption: "" }]);
 
 	// Step 4 data (ucapanPenutup, quotes, paymentMethods, video)
-	const [ucapanPenutup, setUcapanPenutup] = useState<Ucapan>({
+	const [_ucapanPenutup, _setUcapanPenutup] = useState<Ucapan>({
 		title: "",
 		desc: "",
 	});
-	const [quotes, setQuotes] = useState<Quote[]>([
+	const [_quotes, _setQuotes] = useState<Quote[]>([
 		{
 			title: "",
 			defaultText: "",
@@ -108,7 +92,7 @@ export default function CreateWeddingPage() {
 			source: "",
 		},
 	]);
-	const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>([
+	const [_paymentMethods, _setPaymentMethods] = useState<PaymentMethod[]>([
 		{
 			name: "",
 			type: "bank",
@@ -116,7 +100,7 @@ export default function CreateWeddingPage() {
 			holder: "",
 		},
 	]);
-	const [video, setVideo] = useState<VideoInfo | undefined>();
+	const [_video, _setVideo] = useState<VideoInfo | undefined>();
 
 	// Load templates on mount
 	useEffect(() => {
@@ -139,13 +123,13 @@ export default function CreateWeddingPage() {
 			{step === 1 && <Step1 />}
 
 			{/* Step 2: Mempelai & Acara */}
-			{step === 2 && <Step2 wedding={wedding!} />}
+			{step === 2 && <Step2 wedding={wedding} />}
 
 			{/* Step 3: Love Story & Gallery */}
 			{step === 3 && <Step3 />}
 
 			{/* Step 4: Additional Details */}
-			{step === 4 && <Step4 wedding={wedding!} />}
+			{step === 4 && <Step4 wedding={wedding} />}
 		</div>
 	);
 }

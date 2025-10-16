@@ -3,13 +3,12 @@
 import {
 	AudioWaveform,
 	Command,
-	Frame,
 	GalleryVerticalEnd,
 	Heart,
 	LayoutTemplate,
 	Settings2,
 } from "lucide-react";
-import React, { useEffect } from "react";
+import type React from "react";
 
 import {
 	Sidebar,
@@ -18,11 +17,11 @@ import {
 	SidebarHeader,
 	SidebarRail,
 } from "@/components/ui/sidebar";
+import { useStoreDashboard } from "~/stores/dashboard";
 import { NavMain } from "./navbar-main";
 import { NavProjects } from "./navbar-projects";
 import { NavUser } from "./navbar-user";
 import { TeamSwitcher } from "./team-swetcher";
-import { useStoreDashboard } from "~/stores/dashboard";
 
 // This is sample data.
 const data = {

@@ -1,8 +1,9 @@
 "use client";
 import React, { useEffect } from "react";
+import { useStoreCreateWedding } from "../store";
 import GalleryImage from "./galery-image";
 import { AddGalleryModal } from "./gallery-add";
-import { useStoreCreateWedding } from "../store";
+
 type GalleryProps = {
 	galleries: FILE.Gallery[];
 	weddingId: string;
@@ -21,7 +22,7 @@ const Gallery: React.FC<GalleryProps> = ({ galleries: gl, weddingId }) => {
 			{galleries.map((gallery, index) => (
 				<GalleryImage
 					weddingId={weddingId}
-					key={index}
+					key={gallery.url}
 					gallery={gallery}
 					index={index}
 					onDeletedAction={(w) => {

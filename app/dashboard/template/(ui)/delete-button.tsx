@@ -1,10 +1,11 @@
 "use client";
 import { Trash2 } from "lucide-react";
-import React from "react";
+import type React from "react";
 import { Button } from "~/components/ui/button";
 import { useFetcher } from "~/hooks/fetcher";
 import { useStoreDashboard } from "~/stores/dashboard";
 import { AppConfig } from "~/utils/configs/app";
+
 type DeleteButtonProps = {
 	children?: React.ReactNode;
 	onDeletedAction?: () => void;

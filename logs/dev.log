@@ -1,8 +1,11 @@
    ▲ Next.js 15.5.4 (Turbopack)
    - Local:        http://localhost:3002
-   - Network:      http://192.168.100.112:3002
+   - Network:      http://192.168.100.119:3002
    - Environments: .env
 
  ✓ Starting...
- ✓ Compiled middleware in 117ms
- ✓ Ready in 1136ms
+ ✓ Compiled middleware in 108ms
+ ✓ Ready in 1130ms
+ ✓ Compiled middleware in 22ms
+ ✓ Compiled middleware in 135ms
+ ✓ Compiled in 0ms

@@ -1,5 +1,6 @@
 import Image from "next/image";
-import React, { useEffect, useRef, useState } from "react";
+import type React from "react";
+import { useEffect, useRef, useState } from "react";
 
 export type ImageInputProps = {
 	initialSrc?: string; // initial image URL (optional)
@@ -41,7 +42,7 @@ export default function ImageInput({
 	}
 
 	function onFileSelected(e: React.ChangeEvent<HTMLInputElement>) {
-		const file = e.target.files && e.target.files[0];
+		const file = e.target.files?.[0];
 		if (!file) {
 			onFileChange?.(null);
 			return;
@@ -80,13 +81,11 @@ export default function ImageInput({
 	}
 
 	return (
-		<div
+		<button
 			className={className}
-			role="button"
-			tabIndex={0}
 			onClick={openFilePicker}
 			onKeyDown={onKeyDown}
-			aria-label="Change image"
+			type="button"
 		>
 			<Image
 				width={200}
@@ -119,6 +118,6 @@ export default function ImageInput({
 				className="hidden"
 				onChange={onFileSelected}
 			/>
-		</div>
+		</button>
 	);
 }

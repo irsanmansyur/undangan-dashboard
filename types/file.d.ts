@@ -1,4 +1,4 @@
-namespace FILE {
+declare namespace FILE {
 	type AUDIO = {
 		id: string;
 		refId: string;

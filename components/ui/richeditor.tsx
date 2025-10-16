@@ -1,9 +1,9 @@
 "use client";
 
-import { useEditor, EditorContent } from "@tiptap/react";
+import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
 
 interface RichTextEditorProps {
 	value?: string; // initial value

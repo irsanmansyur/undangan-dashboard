@@ -10,14 +10,14 @@ type GoogleProps = {
 	children?: React.ReactNode;
 };
 
-const Google: React.FC<GoogleProps> = ({}) => {
+const Google: React.FC<GoogleProps> = () => {
 	const router = useRouter();
 
 	useEffect(() => {
 		window.addEventListener("message", async (event) => {
-			if (event?.data && event?.data.status == true) {
+			if (event?.data && event?.data.status === true) {
 				await login(event.data.data);
-				router.replace("/dashboard");
+				return router.replace("/dashboard");
 			}
 		});
 		return () => {

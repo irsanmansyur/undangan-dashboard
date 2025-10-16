@@ -1,7 +1,9 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRight } from "lucide-react";
-import React, { useState } from "react";
+import Image from "next/image";
+import type React from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
 import { AudioPicker } from "~/components/audio";
@@ -31,9 +33,10 @@ import {
 } from "~/components/ui/select";
 import { useFetch, useFetcNow } from "~/hooks/fetch-new";
 import { useStoreWedding } from "~/stores/wedding";
-import { Template } from "~/types/template";
-import { WeddingCollection } from "~/types/wedding";
+import type { Template } from "~/types/template";
+import type { WeddingCollection } from "~/types/wedding";
 import { AppConfig } from "~/utils/configs/app";
+
 type Step1Props = {
 	children?: React.ReactNode;
 	wedding: WeddingCollection;
@@ -89,116 +92,116 @@ const Step1: React.FC<Step1Props> = ({ wedding }) => {
 	}>(`${AppConfig.BackendUrl}/wedding-templates`);
 
 	return (
-		<>
-			<Card>
-				<CardHeader>
-					<CardTitle>Step 1: Basic Information</CardTitle>
-					<CardDescription>Update template and cover photo</CardDescription>
-				</CardHeader>
-				<CardContent>
-					<Form {...form}>
-						<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-							<FormField
-								control={form.control}
-								name="templateId"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel>
-											Template <span className="text-destructive">*</span>
-										</FormLabel>
-										<FormControl>
-											<Select
-												value={field.value || ""}
-												onValueChange={(v) => field.onChange(v)}
-											>
-												<SelectTrigger className="w-full">
-													<SelectValue placeholder="Pilih Template..." />
-												</SelectTrigger>
+		<Card>
+			<CardHeader>
+				<CardTitle>Step 1: Basic Information</CardTitle>
+				<CardDescription>Update template and cover photo</CardDescription>
+			</CardHeader>
+			<CardContent>
+				<Form {...form}>
+					<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+						<FormField
+							control={form.control}
+							name="templateId"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>
+										Template <span className="text-destructive">*</span>
+									</FormLabel>
+									<FormControl>
+										<Select
+											value={field.value || ""}
+											onValueChange={(v) => field.onChange(v)}
+										>
+											<SelectTrigger className="w-full">
+												<SelectValue placeholder="Pilih Template..." />
+											</SelectTrigger>
 
-												<SelectContent>
-													{templateRes?.data.map((a) => (
-														<SelectItem key={a.id} value={a.id}>
-															{a.templateName}
-														</SelectItem>
-													))}
-												</SelectContent>
-											</Select>
-										</FormControl>
-										{/* error message dari zod */}
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-							<FormField
-								control={form.control}
-								name="coverPhoto"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel>Cover Photo</FormLabel>
-										<FormControl>
-											<Input
-												type="file"
-												accept="image/*"
-												onChange={(e) => {
-													const file = e.target.files?.[0];
-													field.onChange(file); // simpan ke react-hook-form
-													if (file) {
-														setPreview(URL.createObjectURL(file)); // buat preview
-													} else {
-														setPreview(null);
-													}
-												}}
+											<SelectContent>
+												{templateRes?.data.map((a) => (
+													<SelectItem key={a.id} value={a.id}>
+														{a.templateName}
+													</SelectItem>
+												))}
+											</SelectContent>
+										</Select>
+									</FormControl>
+									{/* error message dari zod */}
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+						<FormField
+							control={form.control}
+							name="coverPhoto"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Cover Photo</FormLabel>
+									<FormControl>
+										<Input
+											type="file"
+											accept="image/*"
+											onChange={(e) => {
+												const file = e.target.files?.[0];
+												field.onChange(file); // simpan ke react-hook-form
+												if (file) {
+													setPreview(URL.createObjectURL(file)); // buat preview
+												} else {
+													setPreview(null);
+												}
+											}}
+										/>
+									</FormControl>
+									<FormMessage />
+									{preview && (
+										<div className="mt-3">
+											<Image
+												width={100}
+												height={100}
+												src={preview}
+												alt="Cover Preview"
+												className="h-40 w-full object-cover rounded-lg border"
 											/>
-										</FormControl>
-										<FormMessage />
-										{preview && (
-											<div className="mt-3">
-												<img
-													src={preview}
-													alt="Cover Preview"
-													className="h-40 w-full object-cover rounded-lg border"
-												/>
+										</div>
+									)}
+								</FormItem>
+							)}
+						/>
+						<FormField
+							control={form.control}
+							name="backgroundMusic"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Background Music</FormLabel>
+									<FormControl>
+										<div>
+											<AudioPicker
+												audios={resp?.data || []}
+												loading={laodingAudio}
+												value={field.value}
+												onChange={field.onChange} // ← update form
+											/>
+											<span className="text-xs text-muted-foreground">
+												Selected ID: {field.value || "-"}
+											</span>
+											<div className="text-sm text-muted-foreground">
+												Optional. Choose background music for your invitation.
 											</div>
-										)}
-									</FormItem>
-								)}
-							/>
-							<FormField
-								control={form.control}
-								name="backgroundMusic"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel>Background Music</FormLabel>
-										<FormControl>
-											<div>
-												<AudioPicker
-													audios={resp?.data || []}
-													loading={laodingAudio}
-													value={field.value}
-													onChange={field.onChange} // ← update form
-												/>
-												<span className="text-xs text-muted-foreground">
-													Selected ID: {field.value || "-"}
-												</span>
-												<div className="text-sm text-muted-foreground">
-													Optional. Choose background music for your invitation.
-												</div>
-											</div>
-										</FormControl>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-							<div className="flex justify-end">
-								<Button type="submit">
-									Next <ArrowRight className="h-4 w-4" />
-								</Button>
-							</div>
-						</form>
-					</Form>
-				</CardContent>
-			</Card>
-		</>
+										</div>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+						<div className="flex justify-end">
+							<Button type="submit">
+								Next <ArrowRight className="h-4 w-4" />
+							</Button>
+						</div>
+					</form>
+				</Form>
+			</CardContent>
+		</Card>
 	);
 };
 

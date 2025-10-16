@@ -1,8 +1,8 @@
 import { Plus, Trash2 } from "lucide-react";
+import { type Control, Controller, useFieldArray } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import RichTextEditor from "../ui/richeditor";
-import { Control, Controller, useFieldArray } from "react-hook-form";
+import type { FormSchema } from "~/app/dashboard/wedding/[id]/edit/(ui)/step-4";
 import {
 	FormControl,
 	FormField,
@@ -10,7 +10,7 @@ import {
 	FormLabel,
 	FormMessage,
 } from "../ui/form";
-import { FormSchema } from "~/app/dashboard/wedding/[id]/edit/(ui)/step-4";
+import RichTextEditor from "../ui/richeditor";
 
 type UcapanPenutupProps = {
 	control: Control<FormSchema>;
@@ -80,8 +80,11 @@ export function PaymentMethodsForm({ control }: PaymentMethodProps) {
 					<Plus className="h-4 w-4" /> Add Payment
 				</Button>
 			</div>
-			{fields.map((method, index) => (
-				<div key={index} className="space-y-4 rounded-lg border p-4">
+			{fields.map((_method, index) => (
+				<div
+					key={`step4form${_method.id}${1}`}
+					className="space-y-4 rounded-lg border p-4"
+				>
 					<div className="flex items-center justify-between">
 						<h4 className="font-medium">Payment Method {index + 1}</h4>
 						{index > 0 && (

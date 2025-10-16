@@ -1,3 +1,6 @@
+import { Loader2 } from "lucide-react";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
 import {
 	Dialog,
 	DialogContent,
@@ -5,12 +8,10 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-import { Loader2 } from "lucide-react";
-import { useState } from "react";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { ScrollArea } from "@/components/ui/scroll-area"; // penting buat responsif scroll
+import { useAudioPlayer } from "~/hooks/audio";
 import { AppConfig } from "~/utils/configs/app";
 
 type AudioPickerProps = {
@@ -26,7 +27,7 @@ export function AudioPicker({
 	value,
 	onChange,
 }: AudioPickerProps) {
-	const [preview, setPreview] = useState<string | null>(null);
+	const [preview, setPreview] = useState<string>();
 
 	return (
 		<Dialog>
@@ -50,7 +51,9 @@ export function AudioPicker({
 							value={value}
 							onValueChange={(val) => {
 								onChange(val);
-								setPreview(audios.find((a) => a.id === val)?.filename || null);
+								setPreview(
+									audios.find((a) => a.id === val)?.filename || undefined,
+								);
 							}}
 							className="space-y-3"
 						>
@@ -81,18 +84,32 @@ export function AudioPicker({
 						</RadioGroup>
 					</ScrollArea>
 				)}
-
-				{preview && (
-					<div className="mt-4">
-						<audio
-							src={`${AppConfig.BackendUrl}/files/stream/${preview}`}
-							controls
-							autoPlay
-							className="w-full"
-						/>
-					</div>
-				)}
+				{preview && <AudioPlayer src={preview} />}
 			</DialogContent>
 		</Dialog>
+	);
+}
+
+function AudioPlayer({ src }: { src?: string }) {
+	const { isPlaying, pause, play, stop } = useAudioPlayer(
+		`${AppConfig.BackendUrl}/files/stream/${src}`,
+	);
+	return (
+		<div className="mt-4">
+			<button
+				type="button"
+				onClick={isPlaying ? pause : play}
+				className="px-3 py-2 bg-blue-500 text-white rounded-md"
+			>
+				{isPlaying ? "Pause" : "Play"}
+			</button>
+			<button
+				type="button"
+				onClick={stop}
+				className="px-3 py-2 bg-gray-500 text-white rounded-md"
+			>
+				Stop
+			</button>
+		</div>
 	);
 }

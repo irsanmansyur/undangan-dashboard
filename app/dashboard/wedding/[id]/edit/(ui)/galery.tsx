@@ -2,6 +2,7 @@
 import React from "react";
 import GalleryImage from "./galery-image";
 import { AddGalleryModal } from "./gallery-add";
+
 type GalleryProps = {
 	galleries: FILE.Gallery[];
 	weddingId: string;
@@ -14,7 +15,7 @@ const Gallery: React.FC<GalleryProps> = ({ galleries: gl, weddingId }) => {
 			{galleries.map((gallery, index) => (
 				<GalleryImage
 					weddingId={weddingId}
-					key={index}
+					key={gallery.url}
 					gallery={gallery}
 					index={index}
 					removeGalleryPhoto={(i) => {

@@ -8,7 +8,7 @@ type GithubOAuthProps = {
 	children?: React.ReactNode;
 };
 
-const GithubOAuth: React.FC<GithubOAuthProps> = ({}) => {
+const GithubOAuth: React.FC<GithubOAuthProps> = () => {
 	const onClick = async () => {
 		try {
 			window.open(

@@ -1,8 +1,6 @@
 "use client";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { useRouter } from "next/navigation";
-import React from "react";
-import z from "zod";
+import type React from "react";
 import { Button } from "~/components/ui/button";
 import {
 	Card,
@@ -11,12 +9,11 @@ import {
 	CardHeader,
 	CardTitle,
 } from "~/components/ui/card";
-
-import { WeddingCollection } from "~/types/wedding";
-import { LoveStoryForm } from "./love-story";
-import Gallery from "./galery";
 import { useStorePage } from "~/stores/page";
 import { useStoreWedding } from "~/stores/wedding";
+import type { WeddingCollection } from "~/types/wedding";
+import Gallery from "./galery";
+import { LoveStoryForm } from "./love-story";
 
 type Step3Props = {
 	wedding: WeddingCollection;
@@ -35,9 +32,9 @@ const Step3: React.FC<Step3Props> = ({ wedding }) => {
 				</CardDescription>
 			</CardHeader>
 			<CardContent className="space-y-6">
-				<Gallery weddingId={wedding?.id!} galleries={wedding?.gallery || []} />
+				<Gallery weddingId={wedding.id} galleries={wedding.gallery || []} />
 				<LoveStoryForm
-					weddingId={wedding?.id!}
+					weddingId={wedding.id}
 					onSubmitAction={() => {
 						generateNewPageId();
 					}}

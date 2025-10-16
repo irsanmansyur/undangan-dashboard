@@ -1,5 +1,5 @@
 export function jsonToFormData(
-	obj: Record<string, any>,
+	obj: Record<string, File | Blob | string | number | boolean>,
 	form?: FormData,
 	parentKey?: string,
 ): FormData {

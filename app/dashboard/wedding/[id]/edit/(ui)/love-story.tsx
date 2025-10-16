@@ -1,11 +1,9 @@
 "use client";
 
-import React from "react";
 import { z } from "zod";
-import { LoveStoryModal } from "./love-story-insert";
-import { useFetch } from "~/hooks/fetch-new";
 import { useStorePage } from "~/stores/page";
 import LoveStoryCard from "../../../(ui)/love-story-card";
+import { LoveStoryModal } from "./love-story-insert";
 
 /**
  * Zod schema
@@ -49,24 +47,21 @@ export function LoveStoryForm({
 	submitting?: boolean;
 	weddingId: string;
 }) {
-	const { loading, fetchData } = useFetch();
 	const { generateNewPageId } = useStorePage();
 
 	return (
-		<>
-			<div className="space-y-4">
-				{loveStories.map((field, index) => (
-					<LoveStoryCard
-						key={field.id}
-						weddingId={weddingId}
-						loveStory={field}
-						onDeletedAction={(d) => {
-							generateNewPageId();
-						}}
-					/>
-				))}
-				<LoveStoryModal weddingId={weddingId} onAddAction={() => {}} />
-			</div>
-		</>
+		<div className="space-y-4">
+			{loveStories.map((field, _index) => (
+				<LoveStoryCard
+					key={field.id}
+					weddingId={weddingId}
+					loveStory={field}
+					onDeletedAction={(_d) => {
+						generateNewPageId();
+					}}
+				/>
+			))}
+			<LoveStoryModal weddingId={weddingId} onAddAction={() => {}} />
+		</div>
 	);
 }

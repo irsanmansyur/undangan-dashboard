@@ -1,7 +1,6 @@
-import { Control, useFieldArray } from "react-hook-form";
-import { FormSchema } from "../[id]/edit/(ui)/step-4";
-import { Button } from "~/components/ui/button";
 import { Plus, Trash2 } from "lucide-react";
+import { type Control, useFieldArray } from "react-hook-form";
+import { Button } from "~/components/ui/button";
 import {
 	FormControl,
 	FormField,
@@ -10,6 +9,7 @@ import {
 	FormMessage,
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
+import type { FormSchema } from "../[id]/edit/(ui)/step-4";
 
 type QuotesProps = {
 	control: Control<FormSchema>;
@@ -42,8 +42,8 @@ export function Quotes({ control }: QuotesProps) {
 				</Button>
 			</div>
 
-			{fields.map((quote, index) => (
-				<div key={index} className="space-y-4 rounded-lg border p-4">
+			{fields.map((_quote, index) => (
+				<div key={_quote.id} className="space-y-4 rounded-lg border p-4">
 					<div className="flex items-center justify-between">
 						<h4 className="font-medium">Quote {index + 1}</h4>
 						{index > 0 && (

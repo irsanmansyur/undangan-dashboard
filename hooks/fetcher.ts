@@ -39,7 +39,7 @@ export const useFetcher = <T = unknown, B = unknown>() => {
 			}
 
 			const contentType = res.headers.get("content-type") ?? "";
-			let responseData: any;
+			let responseData: unknown;
 
 			if (contentType.includes("application/json")) {
 				responseData = await res.json();
@@ -48,16 +48,17 @@ export const useFetcher = <T = unknown, B = unknown>() => {
 			} else {
 				responseData = await res.blob();
 			}
-
-			setData(responseData);
+			setData(responseData as unknown as APP.ApiBaseResponse & { data: T } & B);
 			return responseData as T;
-		} catch (e: any) {
+		} catch (e: unknown) {
 			if (e instanceof ValidateException) {
 				setError(e.response.errors);
 			} else if (e instanceof HttpException) {
 				setError({ message: [e.message] });
+			} else if (e instanceof Error) {
+				setError({ message: [e.message] });
 			} else {
-				setError({ message: [e?.message ?? "Unknown error"] });
+				setError({ message: ["Unknown error"] });
 			}
 		} finally {
 			setLoading(false);

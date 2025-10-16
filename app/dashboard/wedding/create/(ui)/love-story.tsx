@@ -1,18 +1,9 @@
 "use client";
 
-import React from "react";
 import { z } from "zod";
-
-import { Button } from "@/components/ui/button";
-
-import { Trash2 } from "lucide-react";
-import { AppConfig } from "~/utils/configs/app";
-import { LoveStoryModal } from "../../(ui)/love-story-insert";
-import Image from "next/image";
-import { useFetch } from "~/hooks/fetch-new";
-import { useStorePage } from "~/stores/page";
-import { useStoreCreateWedding } from "../store";
 import LoveStoryCard from "../../(ui)/love-story-card";
+import { LoveStoryModal } from "../../(ui)/love-story-insert";
+import { useStoreCreateWedding } from "../store";
 
 /**
  * Zod schema
@@ -59,26 +50,24 @@ export function LoveStoryForm({
 	const { setWedding } = useStoreCreateWedding();
 
 	return (
-		<>
-			<div className="space-y-4">
-				{loveStories.map((field, index) => (
-					<LoveStoryCard
-						key={field.id}
-						weddingId={weddingId}
-						loveStory={field}
-						index={index}
-						onDeletedAction={(w) => {
-							setWedding({ wedding: w });
-						}}
-					/>
-				))}
-				<LoveStoryModal
+		<div className="space-y-4">
+			{loveStories.map((field, index) => (
+				<LoveStoryCard
+					key={field.id}
 					weddingId={weddingId}
-					onAddAction={(w) => {
+					loveStory={field}
+					index={index}
+					onDeletedAction={(w) => {
 						setWedding({ wedding: w });
 					}}
 				/>
-			</div>
-		</>
+			))}
+			<LoveStoryModal
+				weddingId={weddingId}
+				onAddAction={(w) => {
+					setWedding({ wedding: w });
+				}}
+			/>
+		</div>
 	);
 }

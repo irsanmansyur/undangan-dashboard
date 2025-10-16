@@ -1,7 +1,6 @@
 "use client";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import React from "react";
-import z from "zod";
+import type React from "react";
 import { Button } from "~/components/ui/button";
 import {
 	Card,
@@ -10,11 +9,10 @@ import {
 	CardHeader,
 	CardTitle,
 } from "~/components/ui/card";
-
-import { LoveStoryForm } from "./love-story";
-import Gallery from "./galery";
 import { useStorePage } from "~/stores/page";
 import { useStoreCreateWedding } from "../store";
+import Gallery from "./galery";
+import { LoveStoryForm } from "./love-story";
 
 type Step3Props = {
 	children?: React.ReactNode;
@@ -32,13 +30,13 @@ const Step3: React.FC<Step3Props> = () => {
 				</CardDescription>
 			</CardHeader>
 			<CardContent className="space-y-6">
-				<Gallery weddingId={wedding?.id!} galleries={wedding?.gallery || []} />
+				<Gallery weddingId={wedding.id} galleries={wedding.gallery || []} />
 				<LoveStoryForm
-					weddingId={wedding?.id!}
+					weddingId={wedding.id}
 					onSubmitAction={() => {
 						generateNewPageId();
 					}}
-					loveStories={wedding?.loveStory?.map((item) => item) || []}
+					loveStories={wedding.loveStory?.map((item) => item) || []}
 				/>
 
 				<div className="flex justify-between">

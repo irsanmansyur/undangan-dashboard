@@ -1,10 +1,11 @@
 "use client";
-import Image from "next/image";
-import React from "react";
 import { Trash2 } from "lucide-react";
+import Image from "next/image";
+import type React from "react";
 import { Button } from "~/components/ui/button";
 import { useFetch } from "~/hooks/fetch-new";
 import { AppConfig } from "~/utils/configs/app";
+
 type LoveStoryCardProps = {
 	loveStory: WEDDING.LoveStory;
 	weddingId: string;

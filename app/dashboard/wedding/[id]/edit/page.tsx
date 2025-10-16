@@ -3,35 +3,16 @@
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardHeader,
-	CardTitle,
-} from "@/components/ui/card";
-import type { Template } from "@/types/template";
-import type {
-	PaymentMethod,
-	Quote,
-	Ucapan,
-	VideoInfo,
-	WeddingAcara,
-	WeddingCollection,
-	WeddingFirstStep,
-	WeddingMempelai,
-} from "@/types/wedding";
+import type { WeddingCollection } from "@/types/wedding";
 import { AppConfig } from "@/utils/configs/app";
-import { useFetcher } from "~/hooks/fetcher";
-import Step4 from "./(ui)/step-4";
-import Step1 from "./(ui)/step-1";
+import { useFetcNow } from "~/hooks/fetch-new";
+import { useStorePage } from "~/stores/page";
 import { useStoreWedding } from "~/stores/wedding";
+import { renderStepIndicator } from "../../(ui)/step-indicator";
+import Step1 from "./(ui)/step-1";
 import Step2 from "./(ui)/step-2";
 import Step3 from "./(ui)/step-3";
-import { useStorePage } from "~/stores/page";
-import { useFetcNow } from "~/hooks/fetch-new";
-import { renderStepIndicator } from "../../(ui)/step-indicator";
+import Step4 from "./(ui)/step-4";
 
 export default function EditWeddingPage() {
 	const params = useParams();
@@ -62,13 +43,11 @@ export default function EditWeddingPage() {
 					Back to Weddings
 				</Link>
 			</div>
-
 			{renderStepIndicator(step)}
-
-			{step === 1 && <Step1 wedding={weddingData?.data!} />}
-			{step === 2 && <Step2 wedding={weddingData?.data!} />}
-			{step === 3 && <Step3 wedding={weddingData?.data!} />}
-			{step === 4 && <Step4 wedding={weddingData?.data!} />}
+			{weddingData && step === 1 && <Step1 wedding={weddingData.data} />}
+			{weddingData && step === 2 && <Step2 wedding={weddingData.data} />}
+			{weddingData && step === 3 && <Step3 wedding={weddingData.data} />}
+			{weddingData && step === 4 && <Step4 wedding={weddingData.data} />}
 		</div>
 	);
 }

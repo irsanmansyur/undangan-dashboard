@@ -37,7 +37,7 @@ declare namespace APP {
 	};
 }
 
-namespace WEDDING {
+declare namespace WEDDING {
 	type STEP = 1 | 2 | 3 | 4;
 	interface PaymentMethod {
 		name: string;
@@ -129,7 +129,7 @@ namespace WEDDING {
 	};
 }
 
-namespace DASHBOARD {
+declare namespace DASHBOARD {
 	type Breadcrumb = { label: string; href?: string };
 	type User = {
 		email: string;

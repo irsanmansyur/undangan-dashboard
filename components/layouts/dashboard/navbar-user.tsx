@@ -8,7 +8,7 @@ import {
 	LogOut,
 	Sparkles,
 } from "lucide-react";
-
+import { useRouter } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
 	DropdownMenu,
@@ -26,7 +26,6 @@ import {
 	useSidebar,
 } from "@/components/ui/sidebar";
 import { logout } from "~/app/dashboard/action";
-import { useRouter } from "next/navigation";
 
 export function NavUser({
 	user,

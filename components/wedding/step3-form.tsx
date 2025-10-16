@@ -93,7 +93,10 @@ export function Step3Form({
 					</Button>
 				</div>
 				{loveStories.map((story, index) => (
-					<div key={index} className="space-y-4 rounded-lg border p-4">
+					<div
+						key={`${story.desc}loveStory`}
+						className="space-y-4 rounded-lg border p-4"
+					>
 						<div className="flex items-center justify-between">
 							<h4 className="font-medium">Story {index + 1}</h4>
 							{loveStories.length > 1 && (
@@ -174,7 +177,10 @@ export function Step3Form({
 					</Button>
 				</div>
 				{galleryPhotos.map((item, index) => (
-					<div key={index} className="space-y-4 rounded-lg border p-4">
+					<div
+						key={`${item.caption}galleryPhoto`}
+						className="space-y-4 rounded-lg border p-4"
+					>
 						<div className="flex items-center justify-between">
 							<h4 className="font-medium">Photo {index + 1}</h4>
 							{galleryPhotos.length > 1 && (
